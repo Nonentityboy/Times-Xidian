@@ -1,11 +1,11 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View,Input, Button, Text } from '@tarojs/components'
+import { View, Button, Text } from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 
 import { add, minus, asyncAdd } from '../../actions/counter'
 
-import './index.styl'
+import './menu.styl'
 
 // #region 书写注意
 //
@@ -35,50 +35,49 @@ type PageState = {}
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
 
-interface Index {
+interface Menu {
   props: IProps;
 }
 
 @connect(({ counter }) => ({
   counter
 }), (dispatch) => ({
-  add() {
+  add () {
     dispatch(add())
   },
-  dec() {
+  dec () {
     dispatch(minus())
   },
-  asyncAdd() {
+  asyncAdd () {
     dispatch(asyncAdd())
   }
 }))
-class Index extends Component {
+class Menu extends Component {
 
-  /**
- * 指定config的类型声明为: Taro.Config
- *
- * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
- * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
- * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
- */
-  config: Config = {
-    navigationBarTitleText: '首页'
+    /**
+   * 指定config的类型声明为: Taro.Config
+   *
+   * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
+   * 对于像 navigationBarTextStyle: 'black' 这样的推导出的类型是 string
+   * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
+   */
+    config: Config = {
+    navigationBarTitleText: '我的'
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
   }
 
-  componentWillUnmount() { }
+  componentWillUnmount () { }
 
-  componentDidShow() { }
+  componentDidShow () { }
 
-  componentDidHide() { }
+  componentDidHide () { }
 
-  render() {
+  render () {
     return (
-      <View className='index'>
-          <Input type='text' placeholder='将会获取焦点' focus />
+      <View className='menu'>
         <Button className='add_btn' onClick={this.props.add}>+</Button>
         <Button className='dec_btn' onClick={this.props.dec}>-</Button>
         <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
@@ -96,4 +95,4 @@ class Index extends Component {
 //
 // #endregion
 
-export default Index as ComponentClass<PageOwnProps, PageState>
+export default Menu as ComponentClass<PageOwnProps, PageState>
